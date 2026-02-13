@@ -3,6 +3,12 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./db');
 
+console.log('Starting server...');
+console.log('Environment check:');
+console.log('PORT:', process.env.PORT);
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
 // Connect to database
 connectDB();
 
@@ -25,4 +31,7 @@ app.use('/api/upload', require('./routes/upload'));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+}).on('error', (err) => {
+  console.error('Server failed to start:', err);
+  process.exit(1);
 });
